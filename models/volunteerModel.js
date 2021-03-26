@@ -31,6 +31,8 @@ class Volunteer {
       INNER JOIN events e
         ON e.id = va.event_id
       WHERE va.volunteer_id = ${volunteer_id}`;
+    } catch(error) {
+      return error.message;
     }
   }
   // Volunteer Check-in
