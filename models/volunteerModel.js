@@ -26,7 +26,7 @@ class Volunteer {
   static async getAllVolunteerActivities(volunteer_id) {
     try {
       const query = `
-      SELECT va.event_id, va.guardian_approval, va.admin_approval, va.check_in_time, va.check_out_time, e.title, e.date_start, e.location, e.description
+      SELECT va.event_id, va.guardian_approval, va.check_in_time, va.check_out_time, e.title, e.date_start, e.location, e.description
       FROM volunteer_activities va 
       INNER JOIN events e
         ON e.id = va.event_id
