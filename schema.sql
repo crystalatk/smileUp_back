@@ -18,7 +18,7 @@ CREATE TABLE events (
 CREATE TABLE volunteers (
     id serial PRIMARY KEY,
     username varchar(20),
-    password password,
+    password text,
     first_name text,
     last_name text,
     date_of_birth timestamp,
@@ -37,7 +37,7 @@ CREATE TABLE volunteers (
 CREATE TABLE admins (
     id serial PRIMARY KEY,
     username varchar(20),
-    password password,
+    password text,
     first_name text,
     last_name text,
     phone varchar(12),
@@ -48,8 +48,8 @@ CREATE TABLE admins (
 
 CREATE TABLE guardian_child_link (
     id serial PRIMARY KEY,
-    volunteer_id REFERENCES volunteers (id),
-    guardian_id REFERENCES volunteers (id)
+    volunteer_id integer REFERENCES volunteers (id),
+    guardian_id integer REFERENCES volunteers (id)
 )
 
 CREATE TABLE volunteer_activities (
@@ -80,5 +80,5 @@ CREATE TABLE admin_notes (
 CREATE TABLE hours (
     id serial PRIMARY KEY,
     hours integer,
-    volunteer_activities_id REFERENCES volunteer_activities (id)
+    volunteer_activities_id integer REFERENCES volunteer_activities (id)
 )
