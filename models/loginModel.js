@@ -6,7 +6,7 @@ const db = require("./conn"),
 class Login {
   constructor(id) {
     this.id = id;
-    this.username = usesrname;
+    this.username = username;
     this.password = password;
   }
 
