@@ -14,7 +14,7 @@ class Admin {
     date_stop,
     location,
     description,
-    headcout_several_potential,
+    headcount_several_potential,
     signup_deadline,
     age_min,
     min_participants,
@@ -24,14 +24,14 @@ class Admin {
     alerts
   ) {
     try {
-      const respone = db.results(
-        `INSERT INTO events (date_start, date_stop, location, description, headcout_several_potential, signup_deadline, age_min, min_participants, max_participants, adults_needed, num_adults, alerts) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
+      const response = db.results(
+        `INSERT INTO events (date_start, date_stop, location, description, headcount_several_potential, signup_deadline, age_min, min_participants, max_participants, adults_needed, num_adults, alerts) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
         [
           date_start,
           date_stop,
           location,
           description,
-          headcout_several_potential,
+          headcount_several_potential,
           signup_deadline,
           age_min,
           min_participants,
@@ -55,7 +55,7 @@ class Admin {
     date_stop,
     location,
     description,
-    headcout_several_potential,
+    headcount_several_potential,
     signup_deadline,
     age_min,
     min_participants,
@@ -65,14 +65,14 @@ class Admin {
     alerts
   ) {
     try {
-      const respone = db.one(
-        `UPDATE events (date_start, date_stop, location, description, headcout_several_potential, signup_deadline, age_min, min_participants, max_participants, adults_needed, num_adults, alerts) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
+      const response = db.one(
+        `UPDATE events (date_start, date_stop, location, description, headcount_several_potential, signup_deadline, age_min, min_participants, max_participants, adults_needed, num_adults, alerts) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
         [
           date_start,
           date_stop,
           location,
           description,
-          headcout_several_potential,
+          headcount_several_potential,
           signup_deadline,
           age_min,
           min_participants,
