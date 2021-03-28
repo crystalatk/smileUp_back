@@ -20,7 +20,18 @@ router.get("/username", async (req, res) => {
 
 //POSTS
 // This checks password to see if it matches db
-router.post("/login", async (req, res) => {
+router.post("/sitelogin", async (req, res) => {
+  const { username, password, table } = req.body;
+  const user = new LoginModel(null, username, password);
+  const response = await user.login(table);
+  if (!!response.isValid) {
+    res.send(response);
+  } else {
+    res.sendStatus(500);
+  }
+});
+
+router.post("/adminlogin", async (req, res) => {
   const { username, password, table } = req.body;
   const user = new LoginModel(null, username, password);
   const response = await user.login(table);
