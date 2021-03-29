@@ -2,7 +2,8 @@
 
 const express = require("express"),
   router = express.Router(),
-  LoginModel = require("../models/loginModel");
+  LoginModel = require("../models/loginModel"),
+  bcrypt = require('bcryptjs');
 
 //GETS
 // This checks to see if the username is taken
@@ -45,7 +46,6 @@ router.post("/signupVolunteer", async (req, res) => {
     emergency_name,
     emergency_phone,
     sign_up_message,
-    date_joined,
     is_guardian,
     is_minor,
     is_ambassador,
@@ -64,7 +64,6 @@ router.post("/signupVolunteer", async (req, res) => {
     emergency_name,
     emergency_phone,
     sign_up_message,
-    date_joined,
     is_guardian,
     is_minor,
     is_ambassador
