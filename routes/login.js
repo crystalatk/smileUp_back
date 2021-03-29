@@ -7,9 +7,9 @@ const express = require("express"),
 //GETS
 // This checks to see if the username is taken
 router.get("/username", async (req, res) => {
-  const { username, table } = req.query;
-  console.log("THIS IS THE USERNAME AND TABLE:", username, table);
-  const isUsername = await LoginModel.checkUserNames(username, table);
+  const { username } = req.query;
+  console.log("THIS IS THE USERNAME AND TABLE:", username);
+  const isUsername = await LoginModel.checkUserNames(username);
   console.log("ISUSERNAME", isUsername);
   if (isUsername.length) {
     res.send(false);
