@@ -10,11 +10,12 @@ class Admin {
 
   // Create a New Event
   static async addEvent(
+    title,
     date_start,
     date_stop,
     location,
     description,
-    headcount_several_potential,
+    headcount_served_potential,
     signup_deadline,
     age_min,
     min_participants,
@@ -24,14 +25,15 @@ class Admin {
     alerts
   ) {
     try {
-      const response = db.results(
-        `INSERT INTO events (date_start, date_stop, location, description, headcount_several_potential, signup_deadline, age_min, min_participants, max_participants, adults_needed, num_adults, alerts) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
+      const response = db.result(
+        `INSERT INTO events (title, date_start, date_stop, location, description, headcount_served_potential, signup_deadline, age_min, min_participants, max_participants, adults_needed, num_adults, alerts) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`,
         [
+          title,
           date_start,
           date_stop,
           location,
           description,
-          headcount_several_potential,
+          headcount_served_potential,
           signup_deadline,
           age_min,
           min_participants,
@@ -51,6 +53,7 @@ class Admin {
   // Edit an Event
   static async updateEvent(
     event_id,
+    title,
     date_start,
     date_stop,
     location,
@@ -66,8 +69,9 @@ class Admin {
   ) {
     try {
       const response = db.one(
-        `UPDATE events (date_start, date_stop, location, description, headcount_several_potential, signup_deadline, age_min, min_participants, max_participants, adults_needed, num_adults, alerts) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
+        `UPDATE events (title, date_start, date_stop, location, description, headcount_several_potential, signup_deadline, age_min, min_participants, max_participants, adults_needed, num_adults, alerts) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) WHERE event_id = ${event_id};`,
         [
+          title,
           date_start,
           date_stop,
           location,
