@@ -11,10 +11,10 @@ class Login {
   }
 
   // Checks to make sure username is unique
-  static async checkUserNames(username, table) {
+  static async checkUserNames(username) {
     try {
       const response = await db.any(
-        `SELECT username FROM ${table} WHERE username='${username}';`
+        `SELECT username FROM volunteers WHERE username='${username}';`
       );
       return response;
     } catch (err) {
