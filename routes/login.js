@@ -21,9 +21,9 @@ router.get("/username", async (req, res) => {
 //POSTS
 // This checks password to see if it matches db
 router.post("/sitelogin", async (req, res) => {
-  const { username, password, table } = req.body;
+  const { username, password } = req.body;
   const user = new LoginModel(null, username, password);
-  const response = await user.login(table);
+  const response = await user.login();
   if (!!response.isValid) {
     res.send(response);
   } else {

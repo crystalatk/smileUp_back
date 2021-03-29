@@ -76,9 +76,9 @@ class Login {
   }
 
   // Checks login info against db (must pass table in)
-  async login(table) {
+  async login() {
     try {
-      const query = `SELECT * FROM ${table} WHERE username = '${this.username}';`;
+      const query = `SELECT * WHERE username = '${this.username}';`;
       const response = await db.one(query);
       const isValid = this.checkPassword(response.password);
       if (!!isValid) {
