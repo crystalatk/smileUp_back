@@ -31,16 +31,16 @@ router.post("/sitelogin", async (req, res) => {
   }
 });
 
-router.post("/adminlogin", async (req, res) => {
-  const { username, password, table } = req.body;
-  const user = new LoginModel(null, username, password);
-  const response = await user.login(table);
-  if (!!response.isValid) {
-    res.send(response);
-  } else {
-    res.sendStatus(500);
-  }
-});
+// router.post("/adminlogin", async (req, res) => {
+//   const { username, password, table } = req.body;
+//   const user = new LoginModel(null, username, password);
+//   const response = await user.login(table);
+//   if (!!response.isValid) {
+//     res.send(response);
+//   } else {
+//     res.sendStatus(500);
+//   }
+// });
 
 router.post("/signupVolunteer", async (req, res) => {
   console.log("IN THE VOLUNTEER SIGN UP!");
