@@ -5,10 +5,27 @@ const express = require("express"),
   AdminModel = require("../models/adminModel");
 
 // GETS
+// Count Total Volunteers based on event ID
 router.get("/counttotalvolbyevent", async (req, res) => {
   const { event_id } = req.query;
   const response = await AdminModel.countTotalVolByEvent(event_id);
   console.log(response);
+  res.send(response);
+});
+
+// Get a List of Volunteers based on event_id
+router.get("/volunteersattending", async (req, res) => {
+  const { event_id } = req.query;
+  const response = await AdminModel.getVolunteersAttendingEvent(event_id);
+  console.log("THIS IS THE RESPONSE", response.rows);
+  res.send(response.rows);
+});
+
+// Get Volunteer Info Based on volunteer_id
+router.get("/volunteerinfo", async (req, res) => {
+  const { volunteer_id } = req.query;
+  const response = await AdminModel.getVolunteerInfoByID(volunteer_id);
+  console.log("THIS IS THE RESPONSE", response);
   res.send(response);
 });
 
