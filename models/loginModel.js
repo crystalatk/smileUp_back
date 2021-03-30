@@ -36,16 +36,17 @@ class Login {
     emergency_name,
     emergency_phone,
     sign_up_message,
-    date_joined,
     is_guardian,
     is_minor,
     is_ambassador
   ) {
     try {
-      const query = `INSERT INTO volunteers (username, password, first_name, last_name, date_of_birth, phone, email, zip_code, emergency_name, emergency_phone, sign_up_message, date_joined, is_guardian, is_minor, is_ambassador) VALUES ('${username}',  '${password}', '${first_name}', '${last_name}', '${date_of_birth}', '${phone}', '${email}', '${zip_code}', '${emergency_name}', '${emergency_phone}', '${sign_up_message}', '${date_joined}', '${is_guardian}', '${is_minor}', '${is_ambassador}') RETURNING id;`;
+      const query = `INSERT INTO volunteers (username, password, first_name, last_name, date_of_birth, phone, email, zip_code, emergency_name, emergency_phone, sign_up_message, is_guardian, is_minor, is_ambassador) VALUES ('${username}',  '${password}', '${first_name}', '${last_name}', '${date_of_birth}', '${phone}', '${email}', '${zip_code}', '${emergency_name}', '${emergency_phone}', '${sign_up_message}', '${is_guardian}', '${is_minor}', '${is_ambassador}') RETURNING id;`;
       const response = await db.one(query);
+      console.log('addVolunteer response is ', response);
       return response;
     } catch (error) {
+      console.log('error message is ', error)
       return error.message;
     }
   }
