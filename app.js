@@ -23,10 +23,12 @@ const rootController = require("./routes/index"),
   guardiansController = require("./routes/guardians"),
   volunteersController = require("./routes/volunteers"),
   adminsController = require("./routes/admins"),
-  loginController = require("./routes/login");
+  loginController = require("./routes/login"),
+  eventsController = require("./routes/events");
 
 app.use("/", rootController);
 app.use("/guardians", guardiansController);
 app.use("/volunteers", volunteersController);
 app.use("/admins", adminsController);
 app.use("/login", loginController);
+app.use("/events", eventsController);
