@@ -92,6 +92,18 @@ class Admin {
       return err.message;
     }
   }
+
+  // Count the total Volunteers at a certain (future) SmileUp Event
+  static async countTotalVolByEvent(event_id) {
+    const query = `SELECT COUNT(id) FROM volunteer_activities WHERE event_id = '${event_id}';`;
+    try {
+      const response = await db.result(query);
+      return response;
+    } catch (err) {
+      console.log("DB ERROR: ", err.message);
+      return err.message;
+    }
+  }
 }
 
 module.exports = Admin;

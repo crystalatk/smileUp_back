@@ -5,6 +5,12 @@ const express = require("express"),
   AdminModel = require("../models/adminModel");
 
 // GETS
+router.get("/counttotalvolbyevent", async (req, res) => {
+  const { event_id } = req.query;
+  const response = await AdminModel.countTotalVolByEvent(event_id);
+  console.log(response);
+  res.send(response);
+});
 
 // POSTS
 router.post("/addevent", (req, res) => {
