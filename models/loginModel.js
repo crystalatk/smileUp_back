@@ -4,7 +4,7 @@ const db = require("./conn"),
   bcrypt = require("bcryptjs");
 
 class Login {
-  constructor(id) {
+  constructor(id, username, password) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -79,12 +79,11 @@ class Login {
   // Checks login info against db (must pass table in)
   async login() {
     try {
-      const query = `SELECT * WHERE username = '${this.username}';`;
+      const query = `SELECT * FROM volunteers WHERE username = '${this.username}';`;
       const response = await db.one(query);
       const isValid = this.checkPassword(response.password);
       if (!!isValid) {
-        const { id, username } = response;
-        return { isValid, user_id: id, username };
+        return response;
       } else {
         return { isValid };
       }
