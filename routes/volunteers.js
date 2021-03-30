@@ -19,12 +19,24 @@ router.get('/totalVolunteers', async (req, res) => {
 
 
 router.get('/volunteerHours', async (req, res) => {
-  const volunteerHours = await VolunteerModel.getVolunteerHours(1);
+  const volunteerHours = await VolunteerModel.getVolunteerHours(0);
   // console.log(volunteerHours)
   if (volunteerHours) {
     res.send(volunteerHours)
   } else {
     console.log("error: ", volunteerHours)
+    res.sendStatus(500)
+  }
+})
+
+
+router.get('/totalSmiles', async (req, res) => {
+  const smiles = await VolunteerModel.getTotalSmiles();
+  console.log(smiles)
+  if (smiles) {
+    res.send(smiles)
+  } else {
+    console.log("error: ", smiles)
     res.sendStatus(500)
   }
 })

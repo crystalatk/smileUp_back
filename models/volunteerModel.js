@@ -39,7 +39,7 @@ class Volunteer {
   static async getTotalVolunteersId() {
       try {
       const query = `SELECT id FROM volunteers 
-      WHERE is_guardian = false AND is_admin = false AND is_ambassador = false;
+      WHERE is_guardian = false AND is_admin = false;
       `;
       const response = await db.any(query);
       return response;
@@ -48,11 +48,9 @@ class Volunteer {
     }
   }
 
-  static async getVolunteerHours(id) {
+  static async getVolunteerHours(volunteer_id) {
     try {
-    const query = `SELECT total_minutes FROM volunteer_activities
-    WHERE id = ${id}
-    ;
+    const query = `SELECT SUM(total_minutes) FROM volunteer_activities;
     `;
     const response = await db.any(query);
     console.log("this is a response:", response)
@@ -61,6 +59,19 @@ class Volunteer {
     return error.message
   }
 }
+
+  static async getTotalSmiles(volunteer_id) {
+    try {
+    const query = `SELECT SUM(headcount_served_potential) FROM events;
+    `;
+    const response = await db.any(query);
+    console.log("this is a response:", response)
+    return response;
+  } catch (error) {
+    return error.message
+  }
+  }
+
 
   // Volunteer Check-in
   // Volunteer Check-out
