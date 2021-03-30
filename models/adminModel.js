@@ -105,23 +105,11 @@ class Admin {
     }
   }
 
-  // Get a List of Volunteers based on event_id
+  // Get a List of Volunteers and their Info based on event_id
   static async getVolunteersAttendingEvent(event_id) {
-    const query = `SELECT volunteer_id FROM volunteer_activities WHERE event_id = '${event_id}';`;
+    const query = `SELECT va.volunteer_id as id, v.first_name, v.last_name FROM volunteer_activities va INNER JOIN volunteers v ON va.volunteer_id = v.id WHERE event_id = '${event_id}';`;
     try {
       const response = await db.result(query);
-      return response;
-    } catch (err) {
-      console.log("DB ERROR: ", err.message);
-      return err.message;
-    }
-  }
-
-  // Get Volunteer Info Based on volunteer_id
-  static async getVolunteerInfoByID(volunteer_id) {
-    const query = `SELECT * FROM volunteers WHERE id = '${volunteer_id}';`;
-    try {
-      const response = await db.one(query);
       return response;
     } catch (err) {
       console.log("DB ERROR: ", err.message);

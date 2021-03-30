@@ -13,20 +13,12 @@ router.get("/counttotalvolbyevent", async (req, res) => {
   res.send(response);
 });
 
-// Get a List of Volunteers based on event_id
+// Get a List of Volunteers and their info based on event_id
 router.get("/volunteersattending", async (req, res) => {
   const { event_id } = req.query;
   const response = await AdminModel.getVolunteersAttendingEvent(event_id);
   console.log("THIS IS THE RESPONSE", response.rows);
   res.send(response.rows);
-});
-
-// Get Volunteer Info Based on volunteer_id
-router.get("/volunteerinfo", async (req, res) => {
-  const { volunteer_id } = req.query;
-  const response = await AdminModel.getVolunteerInfoByID(volunteer_id);
-  console.log("THIS IS THE RESPONSE", response);
-  res.send(response);
 });
 
 // POSTS
