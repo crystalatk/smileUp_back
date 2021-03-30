@@ -35,6 +35,33 @@ class Volunteer {
       return error.message;
     }
   }
+
+  static async getTotalVolunteersId() {
+      try {
+      const query = `SELECT id FROM volunteers 
+      WHERE is_guardian = false AND is_admin = false AND is_ambassador = false;
+      `;
+      const response = await db.any(query);
+      return response;
+    } catch (error) {
+      return error.message
+    }
+  }
+
+  static async getVolunteerHours(id) {
+    try {
+    const query = `SELECT total_minutes FROM volunteer_activities
+    WHERE id = ${id}
+    ;
+    `;
+    const response = await db.any(query);
+    console.log("this is a response:", response)
+    return response;
+  } catch (error) {
+    return error.message
+  }
+}
+
   // Volunteer Check-in
   // Volunteer Check-out
 }
