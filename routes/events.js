@@ -15,6 +15,7 @@ router.get("/list", async (req, res) => {
   }
 });
 
+// Get the Event Details by event_id
 router.get("/details", async (req, res) => {
   const { id } = req.query;
   const eventDetailsData = await EventsModel.getEventDetails(id);
@@ -23,6 +24,12 @@ router.get("/details", async (req, res) => {
   } else {
     res.sendStatus(500);
   }
+});
+
+// Get the count of all events done by SmileUp
+router.get("/counttotalevents", async (req, res) => {
+  const countTotalEvents = await EventsModel.countTotalEvents();
+  res.send(countTotalEvents);
 });
 
 // POSTS

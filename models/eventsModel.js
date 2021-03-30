@@ -21,12 +21,26 @@ class Events {
     }
   }
 
+  //   Get all Event Details by Event_id
   static async getEventDetails(id) {
     try {
       const query = `
             SELECT * FROM events
-            WHERE id = '${id}'`;
+            WHERE id = '${id}';`;
       const response = await db.one(query);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+
+  //   Get Total Number of Events Smile Up has completed
+  static async countTotalEvents() {
+    try {
+      const query = `
+      SELECT COUNT(id) FROM events WHERE date_stop < NOW();`;
+      const response = await db.any(query);
       return response;
     } catch (error) {
       console.log(error);
