@@ -112,7 +112,7 @@ class Volunteer {
       return error.message;
     }
   }
-}
+
 
   static async getTotalEventsById(volunteer_id) {
     try {
