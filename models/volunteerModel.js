@@ -21,8 +21,21 @@ class Volunteer {
     }
   }
 
-  // All Volunteer Activities
+  // Get Info for Profile by volunteer id
+  static async getAllProfileInfo(id) {
+    try {
+      const query = `
+          SELECT * FROM volunteers
+          WHERE id = '${id}';`;
+      const response = await db.one(query);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
 
+  // All Volunteer Activities
   static async getAllVolunteerActivities(volunteer_id) {
     try {
       const query = `
@@ -31,7 +44,7 @@ class Volunteer {
       INNER JOIN events e
         ON e.id = va.event_id
       WHERE va.volunteer_id = ${volunteer_id}`;
-    } catch(error) {
+    } catch (error) {
       return error.message;
     }
   }

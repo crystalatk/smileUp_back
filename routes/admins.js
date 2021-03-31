@@ -21,6 +21,13 @@ router.get("/volunteersattending", async (req, res) => {
   res.send(response.rows);
 });
 
+// List of all Volunteers and All volunteer Info
+router.get("/volunteerslist", async (req, res) => {
+  const response = await AdminModel.getAllVolunteersAndInfo();
+  console.log("THIS IS THE RESPONSE", response.rows);
+  res.send(response.rows);
+});
+
 // POSTS
 // Add an Event
 router.post("/addevent", (req, res) => {
