@@ -119,7 +119,7 @@ class Admin {
 
   // List of all Volunteers and All volunteer Info
   static async getAllVolunteersAndInfo() {
-    const query = `SELECT * FROM volunteers ORDER BY last_name DESC WHERE is_deleted = false;`;
+    const query = `SELECT * FROM volunteers ORDER BY last_name DESC;`;
     try {
       const response = await db.result(query);
       return response;
