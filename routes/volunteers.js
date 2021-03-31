@@ -2,8 +2,24 @@
 
 const express = require("express"),
   router = express.Router(),
-  VolunteerModel = require('../models/volunteerModel');
+  VolunteersModel = require("../models/volunteerModel");
 
+// get all Info on a volunteer for their profile page
+router.get("/profile", async (req, res) => {
+  const { id } = req.query;
+  const response = await VolunteersModel.getAllProfileInfo(id);
+  console.log("THIS IS THE RESPONSE", response);
+  res.send(response);
+});
+
+
+// Get Gaurdian ID for minor Profile Page
+router.get("/guardianid", async (req, res) => {
+  const { volunteer_id } = req.query;
+  const response = await VolunteersModel.getGuardianID(volunteer_id);
+  console.log("THIS IS THE RESPONSE", response);
+  res.send(response);
+});
 
   //Get all Volunteers
 router.get('/totalVolunteers', async (req, res) => {
@@ -16,7 +32,6 @@ router.get('/totalVolunteers', async (req, res) => {
     res.sendStatus(500)
   }
 })
-
 
 router.get('/volunteerHours', async (req, res) => {
   const volunteerHours = await VolunteerModel.getVolunteerHours(0);
@@ -57,9 +72,6 @@ router.get('/totalSmiles', async (req, res) => {
 })
 
 //posts go here
-
-
-
 
 
 
