@@ -45,9 +45,7 @@ router.get("/volunteerHours", async (req, res) => {
 
 router.get("/volunteerHoursId", async (req, res) => {
   const { volunteer_id } = req.query;
-  const volunteerHoursId = await VolunteersModel.getVolunteerHoursId(
-    volunteer_id
-  );
+  const volunteerHoursId = await VolunteersModel.getVolunteerHoursId(volunteer_id);
   console.log(volunteerHoursId);
   if (volunteerHoursId) {
     res.send(volunteerHoursId);

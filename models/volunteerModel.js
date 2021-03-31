@@ -112,6 +112,22 @@ class Volunteer {
       return error.message;
     }
   }
+}
+
+  static async getTotalEventsById(volunteer_id) {
+    try {
+    const query = `SELECT COUNT(event_id) FROM volunteer_activities 
+    WHERE volunteer_id = 26;
+    `;
+    const response = await db.any(query);
+    console.log("this is a response Id:", response)
+    return response;
+  } catch (error) {
+    return error.message
+  }
+}
+
+
 
   // Update Volunteer Info
   static async updateVolunteer(
