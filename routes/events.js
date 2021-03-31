@@ -30,6 +30,7 @@ router.get("/details", async (req, res) => {
 router.get("/counttotalevents", async (req, res) => {
   const countTotalEvents = await EventsModel.countTotalEvents();
   res.send(countTotalEvents);
+  console.log(countTotalEvents);
 });
 
 // POSTS
