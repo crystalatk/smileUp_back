@@ -99,18 +99,18 @@ class Volunteer {
     }
   }
 
-
   static async getVolunteerHoursId(volunteer_id) {
     try {
-    const query = `SELECT SUM(total_minutes) FROM volunteer_activities
+      const query = `SELECT SUM(total_minutes) FROM volunteer_activities
     WHERE volunteer_id = ${volunteer_id}
     ;
     `;
-    const response = await db.any(query);
-    console.log("this is a response Id:", response)
-    return response;
-  } catch (error) {
-    return error.message
+      const response = await db.any(query);
+      console.log("this is a response Id:", response);
+      return response;
+    } catch (error) {
+      return error.message;
+    }
   }
 }
 
@@ -129,6 +129,28 @@ class Volunteer {
 
 
 
+  // Update Volunteer Info
+  static async updateVolunteer(
+    id,
+    first_name,
+    last_name,
+    date_of_birth,
+    phone,
+    email,
+    zip_code,
+    emergency_name,
+    emergency_phone
+  ) {
+    try {
+      const query = `UPDATE volunteers SET first_name = '${first_name}', last_name = '${last_name}', date_of_birth = '${date_of_birth}', phone = '${phone}', email = '${email}', zip_code = '${zip_code}', emergency_name = '${emergency_name}', emergency_phone = '${emergency_phone}' WHERE id = ${id};`;
+      const response = await db.result(query);
+      console.log("Edit Profile response is ", response);
+      return response;
+    } catch (error) {
+      console.log("error message is ", error);
+      return error.message;
+    }
+  }
   // Volunteer Check-in
   // Volunteer Check-out
 }
