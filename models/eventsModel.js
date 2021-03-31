@@ -37,16 +37,16 @@ class Events {
 
   static async getTotalEventsById(volunteer_id) {
     try {
-    const query = `SELECT COUNT(event_id) FROM volunteer_activities WHERE volunteer_id = 26
+      const query = `SELECT COUNT(event_id) FROM volunteer_activities WHERE volunteer_id = ${volunteer_id}
     ;
     `;
-    const response = await db.any(query);
-    console.log("this is a response Id:", response)
-    return response;
-  } catch (error) {
-    return error.message
+      const response = await db.any(query);
+      console.log("this is a response Id:", response);
+      return response;
+    } catch (error) {
+      return error.message;
+    }
   }
-}
 
   //   Get Total Number of Events Smile Up has completed
   static async countTotalEvents() {
@@ -54,16 +54,13 @@ class Events {
       const query = `
       SELECT COUNT(id) FROM events WHERE date_stop < NOW() ;`;
       const response = await db.any(query);
-      console.log("this is the", response)
+      console.log("this is the", response);
       return response;
     } catch (error) {
       console.log(error);
       return error.message;
     }
   }
-
-
-  
 }
 
 module.exports = Events;
