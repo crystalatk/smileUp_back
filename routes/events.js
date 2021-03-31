@@ -28,7 +28,7 @@ router.get("/details", async (req, res) => {
 
 router.get('/totalEventsId', async (req, res) => {
   const { volunteer_id } = req.query;
-  const totalEventsId = await VolunteerModel.getTotalEventsById(volunteer_id);
+  const totalEventsId = await EventsModel.getTotalEventsById(volunteer_id);
   console.log(totalEventsId);
   if (totalEventsId) {
     res.send(totalEventsId)
