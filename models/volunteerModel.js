@@ -125,6 +125,7 @@ class Volunteer {
   } catch (error) {
     return error.message
   }
+}
 
 
 
