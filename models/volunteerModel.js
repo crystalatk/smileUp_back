@@ -75,7 +75,7 @@ class Volunteer {
     }
   }
 
-  static async getVolunteerHours(volunteer_id) {
+  static async getVolunteerHours() {
     try {
       const query = `SELECT SUM(total_minutes) FROM volunteer_activities;
     `;
@@ -98,6 +98,22 @@ class Volunteer {
       return error.message;
     }
   }
+
+
+  static async getVolunteerHoursId(volunteer_id) {
+    try {
+    const query = `SELECT SUM(total_minutes) FROM volunteer_activities
+    WHERE volunteer_id = ${volunteer_id}
+    ;
+    `;
+    const response = await db.any(query);
+    console.log("this is a response Id:", response)
+    return response;
+  } catch (error) {
+    return error.message
+  }
+}
+
 
   // Volunteer Check-in
   // Volunteer Check-out

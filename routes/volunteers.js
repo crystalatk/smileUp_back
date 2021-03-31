@@ -43,9 +43,25 @@ router.get("/volunteerHours", async (req, res) => {
   }
 });
 
-router.get("/totalSmiles", async (req, res) => {
-  const smiles = await VolunteersModel.getTotalSmiles();
-  console.log(smiles);
+
+router.get('/volunteerHoursId', async (req, res) => {
+  const { volunteer_id } = req.query;
+  const volunteerHoursId = await VolunteerModel.getVolunteerHoursId(volunteer_id);
+  console.log(volunteerHoursId);
+  if (volunteerHoursId) {
+    res.send(volunteerHoursId)
+  } else {
+    console.log("error: ", volunteerHoursId)
+    res.sendStatus(500)
+  }
+})
+
+
+
+
+router.get('/totalSmiles', async (req, res) => {
+  const smiles = await VolunteerModel.getTotalSmiles();
+  console.log(smiles)
   if (smiles) {
     res.send(smiles);
   } else {
