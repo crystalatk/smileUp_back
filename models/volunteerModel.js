@@ -113,6 +113,7 @@ class Volunteer {
     }
   }
 
+
   static async getTotalEventsById(volunteer_id) {
     try {
       const query = `SELECT COUNT(event_id) FROM volunteer_activities 
