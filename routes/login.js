@@ -2,7 +2,8 @@
 
 const express = require("express"),
   router = express.Router(),
-  LoginModel = require("../models/loginModel");
+  LoginModel = require("../models/loginModel"),
+  bcrypt = require('bcryptjs');
 
 //GETS
 // This checks to see if the username is taken
@@ -22,9 +23,11 @@ router.get("/username", async (req, res) => {
 // This checks password to see if it matches db
 router.post("/sitelogin", async (req, res) => {
   const { username, password } = req.body;
+  console.log('this is the username:', username)
   const user = new LoginModel(null, username, password);
   const response = await user.login();
-  if (!!response.isValid) {
+  console.log("this is the", response)
+  if (!!response) {
     res.send(response);
   } else {
     res.sendStatus(500);
@@ -45,7 +48,6 @@ router.post("/signupVolunteer", async (req, res) => {
     emergency_name,
     emergency_phone,
     sign_up_message,
-    date_joined,
     is_guardian,
     is_minor,
     is_ambassador,
@@ -64,7 +66,6 @@ router.post("/signupVolunteer", async (req, res) => {
     emergency_name,
     emergency_phone,
     sign_up_message,
-    date_joined,
     is_guardian,
     is_minor,
     is_ambassador
