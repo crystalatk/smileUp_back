@@ -35,6 +35,20 @@ class Volunteer {
     }
   }
 
+  // Get Gaurdian ID for minor Profile Page
+  static async getGuardianID(volunteer_id) {
+    try {
+      const query = `
+          SELECT guardian_id FROM guardian_child_link
+          WHERE volunteer_id = '${volunteer_id}';`;
+      const response = await db.one(query);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+
   // All Volunteer Activities
   static async getAllVolunteerActivities(volunteer_id) {
     try {
