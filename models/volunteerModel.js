@@ -76,7 +76,7 @@ class Volunteer {
   static async getVolunteerHoursId(volunteer_id) {
     try {
     const query = `SELECT SUM(total_minutes) FROM volunteer_activities
-    WHERE volunteer_id = volunteer_id
+    WHERE volunteer_id = ${volunteer_id}
     ;
     `;
     const response = await db.any(query);

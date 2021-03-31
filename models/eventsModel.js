@@ -39,7 +39,7 @@ class Events {
   static async countTotalEvents() {
     try {
       const query = `
-      SELECT COUNT(id) FROM events WHERE date_stop < NOW();`;
+      SELECT COUNT(id) FROM events WHERE date_stop < NOW() ;`;
       const response = await db.any(query);
       console.log("this is the", response)
       return response;
