@@ -12,6 +12,15 @@ router.get("/profile", async (req, res) => {
   res.send(response);
 });
 
+
+// Get Gaurdian ID for minor Profile Page
+router.get("/guardianid", async (req, res) => {
+  const { volunteer_id } = req.query;
+  const response = await VolunteersModel.getGuardianID(volunteer_id);
+  console.log("THIS IS THE RESPONSE", response);
+  res.send(response);
+});
+
   //Get all Volunteers
 router.get('/totalVolunteers', async (req, res) => {
   const totalVolunteers = await VolunteerModel.getTotalVolunteersId();
