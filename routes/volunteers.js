@@ -43,25 +43,23 @@ router.get("/volunteerHours", async (req, res) => {
   }
 });
 
-
-router.get('/volunteerHoursId', async (req, res) => {
+router.get("/volunteerHoursId", async (req, res) => {
   const { volunteer_id } = req.query;
-  const volunteerHoursId = await VolunteerModel.getVolunteerHoursId(volunteer_id);
+  const volunteerHoursId = await VolunteersModel.getVolunteerHoursId(
+    volunteer_id
+  );
   console.log(volunteerHoursId);
   if (volunteerHoursId) {
-    res.send(volunteerHoursId)
+    res.send(volunteerHoursId);
   } else {
-    console.log("error: ", volunteerHoursId)
-    res.sendStatus(500)
+    console.log("error: ", volunteerHoursId);
+    res.sendStatus(500);
   }
-})
+});
 
-
-
-
-router.get('/totalSmiles', async (req, res) => {
-  const smiles = await VolunteerModel.getTotalSmiles();
-  console.log(smiles)
+router.get("/totalSmiles", async (req, res) => {
+  const smiles = await VolunteersModel.getTotalSmiles();
+  console.log(smiles);
   if (smiles) {
     res.send(smiles);
   } else {
@@ -70,6 +68,37 @@ router.get('/totalSmiles', async (req, res) => {
   }
 });
 
-//posts go here
+//POSTS
+// Update Volunteer Info
+router.post("/editProfile", async (req, res) => {
+  console.log("IN THE VOLUNTEER SIGN UP!");
+  const {
+    id,
+    first_name,
+    last_name,
+    date_of_birth,
+    phone,
+    email,
+    zip_code,
+    emergency_name,
+    emergency_phone,
+  } = req.body;
+  const response = await VolunteersModel.updateVolunteer(
+    id,
+    first_name,
+    last_name,
+    date_of_birth,
+    phone,
+    email,
+    zip_code,
+    emergency_name,
+    emergency_phone
+  );
+  if (response) {
+    res.send(response);
+  } else {
+    res.send("Error: please try again").status(500);
+  }
+});
 
 module.exports = router;
