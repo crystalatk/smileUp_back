@@ -41,6 +41,7 @@ class Events {
       const query = `
       SELECT COUNT(id) FROM events WHERE date_stop < NOW();`;
       const response = await db.any(query);
+      console.log("this is the", response)
       return response;
     } catch (error) {
       console.log(error);
