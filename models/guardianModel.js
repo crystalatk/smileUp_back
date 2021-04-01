@@ -90,6 +90,18 @@ class Guardian {
       return error.message;
     }
   }
+
+  static async linkGuardianAndMinor(minor_id, guardian_id) {
+    try {
+      const query = `
+        INSERT INTO guardian_child_link (volunteer_id, guardian_id) VALUES (${minor_id}, ${guardian_id})
+      `;
+      const response = await db.one(query);
+      return response;
+    } catch (error) {
+      return error.message;
+    }
+  }
 }
 
 module.exports = Guardian;
