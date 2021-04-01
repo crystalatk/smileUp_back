@@ -99,4 +99,15 @@ router.post("/editProfile", async (req, res) => {
   }
 });
 
+router.post("/insertvolunteeractivity", async (req, res) => {
+  console.log("i am signed up")
+  const { event_id, volunteer_id, guardian_approval } = req.body
+  const response = await VolunteersModel.insertVolunteerActivity(volunteer_id, event_id, guardian_approval)
+  if (response) {
+    res.send(response);
+  }else {
+    res.send("Error: please try again").status(500);
+  }
+})
+
 module.exports = router;

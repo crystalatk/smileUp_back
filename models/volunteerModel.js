@@ -113,7 +113,6 @@ class Volunteer {
     }
   }
 
-
   static async getTotalEventsById(volunteer_id) {
     try {
       const query = `SELECT COUNT(event_id) FROM volunteer_activities 
@@ -146,6 +145,21 @@ class Volunteer {
       return response;
     } catch (error) {
       console.log("error message is ", error);
+      return error.message;
+    }
+  }
+  // inserts volunteers and event ids into volunteer activity table
+  static async insertVolunteerActivity(
+    volunteer_id,
+    event_id,
+    guardian_approval
+  ) {
+    try {
+      const query = `INSERT INTO volunteer_activities (volunteer_id, event_id, guardian_approval) VALUES ('${volunteer_id}', '${event_id}', '${guardian_approval}');`;
+      const response = await db.result(query);
+      return response;
+    } catch (error) {
+      console.log("error message is", error);
       return error.message;
     }
   }

@@ -90,6 +90,19 @@ class Guardian {
       return error.message;
     }
   }
+
+  static async getVolunteersForGuardianId(guardian_id) {
+    try {
+      const query = ` SELECT v.id, v.first_name, v.last_name FROM guardian_child_link gcl INNER JOIN volunteers v ON gcl.volunteer_id = v.id WHERE gcl.guardian_id = ${guardian_id};`;
+      const response = await db.any(query);
+      console.log("This is a ", response)
+      return response;
+    }catch (error) {
+      return error.message;
+    }
+  }
+
+
 }
 
 module.exports = Guardian;
