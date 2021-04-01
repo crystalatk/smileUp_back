@@ -91,6 +91,7 @@ class Guardian {
     }
   }
 
+
   static async getVolunteersForGuardianId(guardian_id) {
     try {
       const query = ` SELECT v.id, v.first_name, v.last_name FROM guardian_child_link gcl INNER JOIN volunteers v ON gcl.volunteer_id = v.id WHERE gcl.guardian_id = ${guardian_id};`;
@@ -102,6 +103,18 @@ class Guardian {
     }
   }
 
+
+  static async linkGuardianAndMinor(minor_id, guardian_id) {
+    try {
+      const query = `
+        INSERT INTO guardian_child_link (volunteer_id, guardian_id) VALUES (${minor_id}, ${guardian_id})
+      `;
+      const response = await db.one(query);
+      return response;
+    } catch (error) {
+      return error.message;
+    }
+  }
 
 }
 

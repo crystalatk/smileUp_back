@@ -2,7 +2,8 @@
 
 const express = require("express"),
   router = express.Router(),
-  VolunteersModel = require("../models/volunteerModel");
+  VolunteersModel = require("../models/volunteerModel"),
+  Guardian = require('../models/guardianModel');
 
 // get all Info on a volunteer for their profile page
 router.get("/profile", async (req, res) => {
@@ -99,13 +100,30 @@ router.post("/editProfile", async (req, res) => {
   }
 });
 
+
 router.post("/insertvolunteeractivity", async (req, res) => {
   console.log("i am signed up")
   const { event_id, volunteer_id, guardian_approval } = req.body
   const response = await VolunteersModel.insertVolunteerActivity(volunteer_id, event_id, guardian_approval)
   if (response) {
     res.send(response);
-  }else {
+  } else {
+    res.send("Error: please try again").status(500);
+  }
+})
+
+
+router.post('/linkminor', async (req, res) => {
+  const {
+    minor_id,
+    guardian_id
+  } = req.body;
+  const response = await Guardian.linkGuardianAndMinor(
+    minor_id, guardian_id
+  );
+  if (response) {
+    res.send(response);
+  } else {
     res.send("Error: please try again").status(500);
   }
 })
