@@ -109,7 +109,7 @@ class Admin {
 
   // Count the total Volunteers at a certain (future) SmileUp Event
   static async countTotalVolByEvent(event_id) {
-    const query = `SELECT COUNT(id) FROM volunteer_activities WHERE event_id = '${event_id}';`;
+    const query = `SELECT volunteer_id FROM volunteer_activities WHERE event_id = '${event_id}';`;
     try {
       const response = await db.result(query);
       return response;
