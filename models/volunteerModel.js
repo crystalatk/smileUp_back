@@ -163,6 +163,8 @@ class Volunteer {
       return error.message;
     }
   }
+
+ 
   // Volunteer Check-in
   // Volunteer Check-out
 }

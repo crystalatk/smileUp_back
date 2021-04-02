@@ -3,7 +3,7 @@
 const express = require("express"),
   router = express.Router(),
   VolunteersModel = require("../models/volunteerModel"),
-  Guardian = require('../models/guardianModel');
+  GuardianModel = require('../models/guardianModel');
 
 // get all Info on a volunteer for their profile page
 router.get("/profile", async (req, res) => {
@@ -118,7 +118,7 @@ router.post('/linkminor', async (req, res) => {
     minor_id,
     guardian_id
   } = req.body;
-  const response = await Guardian.linkGuardianAndMinor(
+  const response = await GuardianModel.linkGuardianAndMinor(
     minor_id, guardian_id
   );
   if (response) {
@@ -127,5 +127,8 @@ router.post('/linkminor', async (req, res) => {
     res.send("Error: please try again").status(500);
   }
 })
+
+
+
 
 module.exports = router;
