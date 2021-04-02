@@ -112,7 +112,6 @@ router.post("/insertvolunteeractivity", async (req, res) => {
   }
 })
 
-
 router.post('/linkminor', async (req, res) => {
   const {
     minor_id,
@@ -127,6 +126,8 @@ router.post('/linkminor', async (req, res) => {
     res.send("Error: please try again").status(500);
   }
 })
+
+
 
 
 
