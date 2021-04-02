@@ -19,4 +19,18 @@ const express = require("express"),
     }
   });
 
+
+  router.get("/getguardianforvolunteerId", async (req, res) => {
+    const { volunteer_id } = req.query;
+    console.log(volunteer_id);
+    const guardiansignup = await GuardianModel.getGuardianIdForVolunteers(volunteer_id);
+    console.log(guardiansignup);
+    if(guardiansignup) {
+      res.send(guardiansignup)
+    } else {
+      console.log("error awaitng sign up...", guardiansignup)
+      res.sendStatus(500);
+    }
+  });
+
 module.exports = router;
