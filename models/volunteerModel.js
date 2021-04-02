@@ -35,6 +35,20 @@ class Volunteer {
     }
   }
 
+  // Get Volunteer Info based off the va_id from volunteer_activities table
+  static async getAllVolunteerInfoBasedOnVAID(va_id) {
+    try {
+      const query = `
+          SELECT v.first_name, v.last_name, v.id AS volunteer_id, va.guardian_approval FROM volunteer_activities va INNER JOIN volunteers v ON va.volunteer_id = v.id
+          WHERE va.id = '${va_id}';`;
+      const response = await db.one(query);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+
   // Get Gaurdian ID for minor Profile Page
   static async getGuardianID(volunteer_id) {
     try {

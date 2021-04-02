@@ -3,7 +3,7 @@
 const express = require("express"),
   router = express.Router(),
   VolunteersModel = require("../models/volunteerModel"),
-  Guardian = require('../models/guardianModel');
+  Guardian = require("../models/guardianModel");
 
 // get all Info on a volunteer for their profile page
 router.get("/profile", async (req, res) => {
@@ -18,6 +18,15 @@ router.get("/guardianid", async (req, res) => {
   const { volunteer_id } = req.query;
   const response = await VolunteersModel.getGuardianID(volunteer_id);
   console.log("THIS IS THE RESPONSE", response);
+  res.send(response);
+});
+
+// Get Volunteer Info based off the va_id from volunteer_activities table
+router.get("/volunteerinfofromvaid", async (req, res) => {
+  const { va_id } = req.query;
+  console.log(va_id);
+  const response = await VolunteersModel.getAllVolunteerInfoBasedOnVAID(va_id);
+  console.log("THIS IS THE RESPONSE: ", response);
   res.send(response);
 });
 
@@ -46,7 +55,9 @@ router.get("/volunteerHours", async (req, res) => {
 
 router.get("/volunteerHoursId", async (req, res) => {
   const { volunteer_id } = req.query;
-  const volunteerHoursId = await VolunteersModel.getVolunteerHoursId(volunteer_id);
+  const volunteerHoursId = await VolunteersModel.getVolunteerHoursId(
+    volunteer_id
+  );
   console.log(volunteerHoursId);
   if (volunteerHoursId) {
     res.send(volunteerHoursId);
@@ -100,32 +111,35 @@ router.post("/editProfile", async (req, res) => {
   }
 });
 
-
+// inserts volunteers and event ids into volunteer activity table
 router.post("/insertvolunteeractivity", async (req, res) => {
-  console.log("i am signed up")
-  const { event_id, volunteer_id, guardian_approval } = req.body
-  const response = await VolunteersModel.insertVolunteerActivity(volunteer_id, event_id, guardian_approval)
-  if (response) {
-    res.send(response);
-  } else {
-    res.send("Error: please try again").status(500);
-  }
-})
-
-
-router.post('/linkminor', async (req, res) => {
-  const {
-    minor_id,
-    guardian_id
-  } = req.body;
-  const response = await Guardian.linkGuardianAndMinor(
-    minor_id, guardian_id
+  console.log("i am signed up");
+  const { event_id, volunteer_id, guardian_approval } = req.body;
+  const response = await VolunteersModel.insertVolunteerActivity(
+    volunteer_id,
+    event_id,
+    guardian_approval
   );
   if (response) {
     res.send(response);
   } else {
     res.send("Error: please try again").status(500);
   }
-})
+});
+
+// Insert Check_In Time in Volunteer_Activity
+router.post("/insetcheckintime", async (req, res) => {
+  console.log("I am connected to the back");
+});
+
+router.post("/linkminor", async (req, res) => {
+  const { minor_id, guardian_id } = req.body;
+  const response = await Guardian.linkGuardianAndMinor(minor_id, guardian_id);
+  if (response) {
+    res.send(response);
+  } else {
+    res.send("Error: please try again").status(500);
+  }
+});
 
 module.exports = router;
