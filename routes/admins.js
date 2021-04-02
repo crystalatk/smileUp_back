@@ -29,6 +29,7 @@ router.get("/volunteerslist", async (req, res) => {
 });
 
 // POSTS
+
 // Add an Event
 router.post("/addevent", (req, res) => {
   const {
@@ -102,6 +103,18 @@ router.post("/editevent", (req, res) => {
     num_adults,
     alerts
   );
+  if (response.id) {
+    res.send(response);
+  } else {
+    res.send("Error").status(500);
+  }
+});
+
+// INSERT CHECK-IN TIME INTO VA
+router.post("/insertcheckintime", (req, res) => {
+  const { va_id } = req.body;
+  console.log("IM IN THE BACK AND THE VA_ID IS: ", va_id);
+  const response = AdminModel.updateEvent(va_id);
   if (response.id) {
     res.send(response);
   } else {
