@@ -9,8 +9,8 @@ const express = require("express"),
 router.get("/counttotalvolbyevent", async (req, res) => {
   const { event_id } = req.query;
   const response = await AdminModel.countTotalVolByEvent(event_id);
-  console.log(response);
-  res.send(response);
+  console.log(response.rows);
+  res.send(response.rows);
 });
 
 // Get a List of Volunteers and their info based on event_id
