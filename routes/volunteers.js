@@ -128,8 +128,4 @@ router.post('/linkminor', async (req, res) => {
 })
 
 
-
-
-
-
 module.exports = router;
