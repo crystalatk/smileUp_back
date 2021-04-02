@@ -107,7 +107,7 @@ class Admin {
 
   // Get a List of Volunteers and their Info based on event_id
   static async getVolunteersAttendingEvent(event_id) {
-    const query = `SELECT va.volunteer_id as id, v.first_name, v.last_name FROM volunteer_activities va INNER JOIN volunteers v ON va.volunteer_id = v.id WHERE event_id = '${event_id}';`;
+    const query = `SELECT va.volunteer_id as id, v.first_name, v.last_name, va.check_in_time, va.check_out_time, va.check_out_time - va.check_in_time AS total_time FROM volunteer_activities va INNER JOIN volunteers v ON va.volunteer_id = v.id WHERE event_id = ${event_id};`;
     try {
       const response = await db.result(query);
       return response;
