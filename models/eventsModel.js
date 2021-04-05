@@ -11,7 +11,7 @@ class Events {
   static async getUpcomingEvents() {
     try {
       const query = `
-            SELECT id, title, to_char(date_start, 'MM-DD-YYYY') as date, to_char(date_start, 'HH:MM') as start_time, to_char(date_stop, 'HH:MM') as stop_time, location, to_char(signup_deadline, 'MM-DD-YYYY') as deadline, age_min FROM events
+            SELECT id, title, date_start, date_stop, location, signup_deadline, age_min FROM events
             WHERE signup_deadline > NOW();`;
       const response = await db.any(query);
       return response;
