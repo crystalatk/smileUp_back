@@ -26,23 +26,64 @@ router.get("/details", async (req, res) => {
   }
 });
 
-router.get('/totalEventsId', async (req, res) => {
+// Get Total Events a Volunteer has Completed by VolunteerID
+router.get("/totalEventsId", async (req, res) => {
   const { volunteer_id } = req.query;
   const totalEventsId = await EventsModel.getTotalEventsById(volunteer_id);
   console.log(totalEventsId);
   if (totalEventsId) {
-    res.send(totalEventsId)
+    res.send(totalEventsId);
   } else {
-    console.log("error: ", totalEventsId)
-    res.sendStatus(500)
+    console.log("error: ", totalEventsId);
+    res.sendStatus(500);
   }
-})
+});
 
 // Get the count of all events done by SmileUp
 router.get("/counttotalevents", async (req, res) => {
   const countTotalEvents = await EventsModel.countTotalEvents();
   res.send(countTotalEvents);
   console.log(countTotalEvents);
+});
+
+// Get the all events approved by not checked in by guardian_id
+router.get("/approvedeventsbyguardianid", async (req, res) => {
+  const { guardian_id } = req.query;
+  const approvedEvents = await EventsModel.getAllApprovedMinorEventsByGuardianID(
+    guardian_id
+  );
+  res.send(approvedEvents);
+  console.log(approvedEvents);
+});
+
+// Get the all events needing approval by not checked in by guardian_id
+router.get("/needsapprovaleventsbyguardianid", async (req, res) => {
+  const { guardian_id } = req.query;
+  const approvedEvents = await EventsModel.getAllNeedsApprovalMinorEventsByGuardianID(
+    guardian_id
+  );
+  res.send(approvedEvents);
+  console.log(approvedEvents);
+});
+
+// Get the all events approved by not checked in by volunteer_id
+router.get("/approvedeventsbyvolunteerid", async (req, res) => {
+  const { volunteer_id } = req.query;
+  const approvedEvents = await EventsModel.getAllApprovedMinorEventsByVolunteerID(
+    volunteer_id
+  );
+  res.send(approvedEvents);
+  console.log(approvedEvents);
+});
+
+// Get the all events needing approval by not checked in by volunteer_id
+router.get("/needsapprovaleventsbyvolunteerid", async (req, res) => {
+  const { volunteer_id } = req.query;
+  const approvedEvents = await EventsModel.getAllNeedsApprovedMinorEventsByVolunteerID(
+    volunteer_id
+  );
+  res.send(approvedEvents);
+  console.log(approvedEvents);
 });
 
 // POSTS

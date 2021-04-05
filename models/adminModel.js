@@ -93,12 +93,11 @@ class Admin {
     }
   }
 
-  // INSERT CHECK-IN TIME INTO VA
-  static async updateEvent(va_id) {
+  // INSERT CHECK-IN OR CHECK-OUT TIME INTO VA
+  static async updateEvent(va_id, event) {
     try {
       const response = db.result(
-        `UPDATE volunteer_activities SET check_in_time = NOW() WHERE id = ${va_id};`,
-        [va_id]
+        `UPDATE volunteer_activities SET ${event} = NOW() WHERE id = ${va_id};`
       );
       return response;
     } catch (err) {

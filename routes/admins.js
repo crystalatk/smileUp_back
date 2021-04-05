@@ -110,11 +110,11 @@ router.post("/editevent", (req, res) => {
   }
 });
 
-// INSERT CHECK-IN TIME INTO VA
-router.post("/insertcheckintime", (req, res) => {
-  const { va_id } = req.body;
+// INSERT CHECK-IN OR CHECK-OUT TIME INTO VA
+router.post("/insertcheckinouttime", (req, res) => {
+  const { va_id, event } = req.body;
   console.log("IM IN THE BACK AND THE VA_ID IS: ", va_id);
-  const response = AdminModel.updateEvent(va_id);
+  const response = AdminModel.updateEvent(va_id, event);
   if (response.id) {
     res.send(response);
   } else {
