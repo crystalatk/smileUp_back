@@ -149,5 +149,22 @@ router.post('/linkminor', async (req, res) => {
   }
 });
 
+// Update Volunteer Info
+router.post("/editavatar", async (req, res) => {
+  const {
+    id,
+    avatar_link
+  } = req.body;
+  const response = await VolunteersModel.updateAvatar(
+    id,
+    avatar_link
+  );
+  if (response) {
+    res.send(response);
+  } else {
+    res.send("Error: please try again").status(500);
+  }
+});
+
 
 module.exports = router;

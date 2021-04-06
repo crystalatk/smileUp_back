@@ -178,6 +178,25 @@ class Volunteer {
     }
   }
 
+
+  // Update Volunteer Avatar Picture
+  static async updateAvatar(
+    id,
+    avatar_link
+  ) {
+    try {
+      const query = `UPDATE volunteers SET avatar_link = '${avatar_link}' WHERE id = ${id};`;
+      const response = await db.result(query);
+      console.log("Update Avatar response is ", response);
+      return response;
+    } catch (error) {
+      console.log("error message is ", error);
+      return error.message;
+    }
+  }
+
+ 
+
   // Volunteer Check-in
   // Volunteer Check-out
 }
