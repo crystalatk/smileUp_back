@@ -25,7 +25,7 @@ class Volunteer {
   static async getAllProfileInfo(id) {
     try {
       const query = `
-          SELECT * FROM volunteers
+          SELECT id, first_name, last_name, AGE(date_of_birth) as age, phone, email, zip_code, emergency_name, emergency_phone, date_joined, is_guardian, is_minor, is_ambassador, is_admin, is_deleted, avatar_link FROM volunteers
           WHERE id = '${id}';`;
       const response = await db.one(query);
       return response;
@@ -178,7 +178,6 @@ class Volunteer {
     }
   }
 
- 
   // Volunteer Check-in
   // Volunteer Check-out
 }
