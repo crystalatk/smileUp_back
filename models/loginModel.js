@@ -43,10 +43,10 @@ class Login {
     try {
       const query = `INSERT INTO volunteers (username, password, first_name, last_name, date_of_birth, phone, email, zip_code, emergency_name, emergency_phone, sign_up_message, is_guardian, is_minor, is_ambassador) VALUES ('${username}',  '${password}', '${first_name}', '${last_name}', '${date_of_birth}', '${phone}', '${email}', '${zip_code}', '${emergency_name}', '${emergency_phone}', '${sign_up_message}', '${is_guardian}', '${is_minor}', '${is_ambassador}') RETURNING id;`;
       const response = await db.one(query);
-      console.log('addVolunteer response is ', response);
+      console.log("addVolunteer response is ", response);
       return response;
     } catch (error) {
-      console.log('error message is ', error)
+      console.log("error message is ", error);
       return error.message;
     }
   }
@@ -79,7 +79,7 @@ class Login {
   // Checks login info against db (must pass table in)
   async login() {
     try {
-      const query = `SELECT * FROM volunteers WHERE username = '${this.username}';`;
+      const query = `SELECT id, password, first_name, last_name, date_of_birth, AGE(date_of_birth) as age, phone, email, zip_code, emergency_name, emergency_phone, date_joined, is_guardian, is_minor, is_ambassador, is_admin, is_deleted, avatar_link FROM volunteers WHERE username = '${this.username}';`;
       const response = await db.one(query);
       const isValid = this.checkPassword(response.password);
       if (!!isValid) {
