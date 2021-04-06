@@ -72,7 +72,7 @@ class Events {
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN guardian_child_link gcl ON gcl.volunteer_id = va.volunteer_id 
           INNER JOIN events e ON va.event_id = e.id 
-            WHERE va.check_in_time IS null AND va.guardian_denied = false AND va.guardian_approval = true AND gcl.guardian_id = ${guardian_id};`;
+            WHERE va.check_in_time IS null AND va.guardian_denied = false AND va.guardian_approval = true AND gcl.guardian_id = ${guardian_id} AND e.signup_deadline > NOW();`;
       const response = await db.any(query);
       console.log("this is the", response);
       return response;
@@ -91,7 +91,7 @@ class Events {
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN guardian_child_link gcl ON gcl.volunteer_id = va.volunteer_id 
           INNER JOIN events e ON va.event_id = e.id 
-            WHERE va.check_in_time IS null AND va.guardian_denied = false AND va.guardian_approval = false AND gcl.guardian_id = ${guardian_id};`;
+            WHERE va.check_in_time IS null AND va.guardian_denied = false AND va.guardian_approval = false AND gcl.guardian_id = ${guardian_id} AND e.signup_deadline > NOW();`;
       const response = await db.any(query);
       console.log("this is the", response);
       return response;
@@ -109,7 +109,7 @@ class Events {
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN events e ON va.event_id = e.id 
-            WHERE va.check_in_time IS null AND va.guardian_denied = false AND  va.guardian_approval = true AND and va.volunteer_id = ${volunteer_id};`;
+            WHERE va.check_in_time IS null AND va.guardian_denied = false AND  va.guardian_approval = true AND and va.volunteer_id = ${volunteer_id} AND e.signup_deadline > NOW();`;
       const response = await db.any(query);
       console.log("this is the", response);
       return response;
@@ -127,7 +127,7 @@ class Events {
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN events e ON va.event_id = e.id 
-            WHERE va.check_in_time IS null AND va.guardian_approval = false AND va.guardian_denied = false AND va.volunteer_id = ${volunteer_id};`;
+            WHERE va.check_in_time IS null AND va.guardian_approval = false AND va.guardian_denied = false AND va.volunteer_id = ${volunteer_id} AND e.signup_deadline > NOW();`;
       const response = await db.any(query);
       console.log("this is the", response);
       return response;

@@ -93,7 +93,7 @@ class Guardian {
 
   static async getVolunteersForGuardianId(guardian_id) {
     try {
-      const query = ` SELECT v.id, v.first_name, v.last_name FROM guardian_child_link gcl INNER JOIN volunteers v ON gcl.volunteer_id = v.id WHERE gcl.guardian_id = ${guardian_id};`;
+      const query = ` SELECT v.id, v.first_name, v.last_name, AGE(v.date_of_birth) as age FROM guardian_child_link gcl INNER JOIN volunteers v ON gcl.volunteer_id = v.id WHERE gcl.guardian_id = ${guardian_id};`;
       const response = await db.any(query);
       console.log("This is a response", response);
       return response;
