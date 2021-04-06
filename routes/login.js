@@ -3,7 +3,7 @@
 const express = require("express"),
   router = express.Router(),
   LoginModel = require("../models/loginModel"),
-  bcrypt = require('bcryptjs');
+  bcrypt = require("bcryptjs");
 
 //GETS
 // This checks to see if the username is taken
@@ -23,10 +23,10 @@ router.get("/username", async (req, res) => {
 // This checks password to see if it matches db
 router.post("/sitelogin", async (req, res) => {
   const { username, password } = req.body;
-  console.log('this is the username:', username)
+  console.log("this is the username:", username);
   const user = new LoginModel(null, username, password);
   const response = await user.login();
-  console.log("this is the", response)
+  console.log("this is the RESPONSE", response);
   if (!!response) {
     res.send(response);
   } else {
