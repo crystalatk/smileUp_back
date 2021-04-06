@@ -91,14 +91,13 @@ class Guardian {
     }
   }
 
-
   static async getVolunteersForGuardianId(guardian_id) {
     try {
-      const query = ` SELECT v.id, v.first_name, v.last_name FROM guardian_child_link gcl INNER JOIN volunteers v ON gcl.volunteer_id = v.id WHERE gcl.guardian_id = ${guardian_id};`;
+      const query = ` SELECT v.id, v.first_name, v.last_name, AGE(v.date_of_birth) as age FROM guardian_child_link gcl INNER JOIN volunteers v ON gcl.volunteer_id = v.id WHERE gcl.guardian_id = ${guardian_id};`;
       const response = await db.any(query);
-      console.log("This is a response", response)
+      console.log("This is a response", response);
       return response;
-    }catch (error) {
+    } catch (error) {
       return error.message;
     }
   }
@@ -107,13 +106,12 @@ class Guardian {
     try {
       const query = ` SELECT v.id, v.first_name, v.last_name FROM guardian_child_link gcl INNER JOIN volunteers v ON gcl.volunteer_id = v.id WHERE gcl.volunteer_id =${volunteer_id};`;
       const response = await db.any(query);
-      console.log("Awaiting response", response)
+      console.log("Awaiting response", response);
       return response;
-    }catch(error) {
+    } catch (error) {
       return error.message;
     }
   }
-
 
   static async linkGuardianAndMinor(minor_id, guardian_id) {
     try {
@@ -127,6 +125,29 @@ class Guardian {
     }
   }
 
+  // Insert true into guardian denied on volunteer activities
+  static async insertTrueForGuardianDenied(id) {
+    try {
+      const query = `UPDATE volunteer_activities SET guardian_denied = true WHERE id = ${id};`;
+      const response = await db.result(query);
+      return response;
+    } catch (error) {
+      console.log(error.message);
+      return error.message;
+    }
+  }
+
+  // Insert true into guardian approved on volunteer activities
+  static async insertTrueForGuardianApproved(id) {
+    try {
+      const query = `UPDATE volunteer_activities SET guardian_approval = true WHERE id = ${id};`;
+      const response = await db.result(query);
+      return response;
+    } catch (error) {
+      console.log(error.message);
+      return error.message;
+    }
+  }
 }
 
 module.exports = Guardian;

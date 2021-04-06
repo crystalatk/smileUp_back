@@ -67,12 +67,12 @@ class Events {
   static async getAllApprovedMinorEventsByGuardianID(guardian_id) {
     try {
       const query = `
-      SELECT va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
+      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN guardian_child_link gcl ON gcl.volunteer_id = va.volunteer_id 
           INNER JOIN events e ON va.event_id = e.id 
-            WHERE va.check_in_time IS null AND va.guardian_approval = true AND gcl.guardian_id = ${guardian_id};`;
+            WHERE va.check_in_time IS null AND va.guardian_denied = false AND va.guardian_approval = true AND gcl.guardian_id = ${guardian_id} AND e.signup_deadline > NOW();`;
       const response = await db.any(query);
       console.log("this is the", response);
       return response;
@@ -86,12 +86,12 @@ class Events {
   static async getAllNeedsApprovalMinorEventsByGuardianID(guardian_id) {
     try {
       const query = `
-      SELECT va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
+      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN guardian_child_link gcl ON gcl.volunteer_id = va.volunteer_id 
           INNER JOIN events e ON va.event_id = e.id 
-            WHERE va.check_in_time IS null AND va.guardian_approval = false AND gcl.guardian_id = ${guardian_id};`;
+            WHERE va.check_in_time IS null AND va.guardian_denied = false AND va.guardian_approval = false AND gcl.guardian_id = ${guardian_id} AND e.signup_deadline > NOW();`;
       const response = await db.any(query);
       console.log("this is the", response);
       return response;
@@ -105,11 +105,11 @@ class Events {
   static async getAllApprovedMinorEventsByVolunteerID(volunteer_id) {
     try {
       const query = `
-      SELECT va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
+      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN events e ON va.event_id = e.id 
-            WHERE va.check_in_time IS null AND va.guardian_approval = true AND va.volunteer_id = ${volunteer_id};`;
+            WHERE va.check_in_time IS null AND va.guardian_denied = false AND  va.guardian_approval = true AND and va.volunteer_id = ${volunteer_id} AND e.signup_deadline > NOW();`;
       const response = await db.any(query);
       console.log("this is the", response);
       return response;
@@ -123,11 +123,11 @@ class Events {
   static async getAllNeedsApprovedMinorEventsByVolunteerID(volunteer_id) {
     try {
       const query = `
-      SELECT va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
+      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN events e ON va.event_id = e.id 
-            WHERE va.check_in_time IS null AND va.guardian_approval = false AND va.volunteer_id = ${volunteer_id};`;
+            WHERE va.check_in_time IS null AND va.guardian_approval = false AND va.guardian_denied = false AND va.volunteer_id = ${volunteer_id} AND e.signup_deadline > NOW();`;
       const response = await db.any(query);
       console.log("this is the", response);
       return response;
