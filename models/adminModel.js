@@ -141,6 +141,31 @@ class Admin {
       return err.message;
     }
   }
+
+  static async addDocument(
+    is_general,
+    event_id,
+    document_title,
+    document_url,
+    admin_id
+  ) {
+    try {
+      const response = db.result(
+        `INSERT INTO events (is_general, event_id, document_title, document_url, admin_id) VALUES ($1, $2, $3, $4, $5);`,
+        [
+          is_general,
+          event_id,
+          document_title,
+          document_url,
+          admin_id
+        ]
+      );
+      return response;
+    } catch (err) {
+      console.log(err.message);
+      return err.message;
+    }
+  }
 }
 
 module.exports = Admin;
