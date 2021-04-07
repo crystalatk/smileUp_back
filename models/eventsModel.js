@@ -20,6 +20,19 @@ class Events {
       return error.message;
     }
   }
+  // Get All Past events
+  static async getPastEvents() {
+    try {
+      const query = `
+            SELECT id, title, date_start, date_stop, location, signup_deadline, age_min FROM events
+            WHERE signup_deadline < NOW();`;
+      const response = await db.any(query);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
 
   //   Get all Event Details by Event_id
   static async getEventDetails(id) {

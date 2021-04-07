@@ -15,6 +15,16 @@ router.get("/list", async (req, res) => {
   }
 });
 
+router.get("/pastlist", async (req, res) => {
+  const eventListData = await EventsModel.getPastEvents();
+  console.log(eventListData);
+  if (eventListData.length > 0) {
+    res.send(eventListData);
+  } else {
+    res.sendStatus(500);
+  }
+});
+
 // Get the Event Details by event_id
 router.get("/details", async (req, res) => {
   const { id } = req.query;
