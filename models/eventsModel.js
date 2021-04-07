@@ -67,7 +67,7 @@ class Events {
   static async getAllApprovedMinorEventsByGuardianID(guardian_id) {
     try {
       const query = `
-      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
+      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name, v.avatar_link, e.signup_deadline 
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN guardian_child_link gcl ON gcl.volunteer_id = va.volunteer_id 
@@ -86,7 +86,7 @@ class Events {
   static async getAllNeedsApprovalMinorEventsByGuardianID(guardian_id) {
     try {
       const query = `
-      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
+      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name, v.avatar_link, e.signup_deadline 
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN guardian_child_link gcl ON gcl.volunteer_id = va.volunteer_id 
@@ -105,7 +105,7 @@ class Events {
   static async getAllApprovedMinorEventsByVolunteerID(volunteer_id) {
     try {
       const query = `
-      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
+      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name, v.avatar_link, e.signup_deadline 
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN events e ON va.event_id = e.id 
@@ -123,7 +123,7 @@ class Events {
   static async getAllNeedsApprovedMinorEventsByVolunteerID(volunteer_id) {
     try {
       const query = `
-      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name 
+      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, v.first_name, v.last_name, v.avatar_link, e.signup_deadline 
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN events e ON va.event_id = e.id 
