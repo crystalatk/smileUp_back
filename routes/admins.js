@@ -125,34 +125,18 @@ router.post("/insertcheckinouttime", (req, res) => {
 // Add a Document
 router.post("/addDocument", (req, res) => {
   const {
-    title,
-    date_start,
-    date_stop,
-    location,
-    description,
-    headcount_served_potential,
-    signup_deadline,
-    age_min,
-    min_participants,
-    max_participants,
-    adults_needed,
-    num_adults,
-    alerts,
+    is_general,
+    event_id,
+    document_title,
+    document_url,
+    admin_id
   } = req.body;
-  const response = AdminModel.addEvent(
-    title,
-    date_start,
-    date_stop,
-    location,
-    description,
-    headcount_served_potential,
-    signup_deadline,
-    age_min,
-    min_participants,
-    max_participants,
-    adults_needed,
-    num_adults,
-    alerts
+  const response = AdminModel.addDocument(
+    is_general,
+    event_id,
+    document_title,
+    document_url,
+    admin_id
   );
   if (response.id) {
     res.send(response);
