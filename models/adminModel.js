@@ -142,6 +142,7 @@ class Admin {
     }
   }
 
+  // Add a document
   static async addDocument(
     is_general,
     event_id,
@@ -151,7 +152,7 @@ class Admin {
   ) {
     try {
       const response = db.result(
-        `INSERT INTO events (is_general, event_id, document_title, document_url, admin_id) VALUES ($1, $2, $3, $4, $5);`,
+        `INSERT INTO docs_admin (is_general, event_id, document_title, document_url, admin_id) VALUES ($1, $2, $3, $4, $5);`,
         [
           is_general,
           event_id,
