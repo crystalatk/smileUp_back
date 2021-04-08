@@ -90,6 +90,7 @@ class Volunteer {
       INNER JOIN events e
         ON e.id = va.event_id
       WHERE va.volunteer_id = ${volunteer_id}`;
+      const response = await db.any(query);
     } catch (error) {
       return error.message;
     }
@@ -148,7 +149,7 @@ class Volunteer {
   static async getTotalEventsById(volunteer_id) {
     try {
       const query = `SELECT COUNT(event_id) FROM volunteer_activities 
-    WHERE volunteer_id = 26;
+    WHERE volunteer_id = ${volunteer_id};
     `;
       const response = await db.any(query);
       console.log("this is a response Id:", response);

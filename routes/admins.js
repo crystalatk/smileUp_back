@@ -31,7 +31,7 @@ router.get("/volunteerslist", async (req, res) => {
 // POSTS
 
 // Add an Event
-router.post("/addevent", (req, res) => {
+router.post("/addevent", async (req, res) => {
   const {
     title,
     date_start,
@@ -47,7 +47,7 @@ router.post("/addevent", (req, res) => {
     num_adults,
     alerts,
   } = req.body;
-  const response = AdminModel.addEvent(
+  const response = await AdminModel.addEvent(
     title,
     date_start,
     date_stop,
@@ -62,17 +62,17 @@ router.post("/addevent", (req, res) => {
     num_adults,
     alerts
   );
-  if (response.id) {
+  if (response.rowCount) {
     console.log("I am not caught");
     res.send(response);
   } else {
     console.log("You got the error");
-    res.send("Error").status(500);
+    res.sendStatus(500);
   }
 });
 
 // Edit an Event
-router.post("/editevent", (req, res) => {
+router.post("/editevent", async (req, res) => {
   const {
     event_id,
     title,
@@ -89,7 +89,7 @@ router.post("/editevent", (req, res) => {
     num_adults,
     alerts,
   } = req.body;
-  const response = AdminModel.updateEvent(
+  const response = await AdminModel.updateEvent(
     event_id,
     title,
     date_start,
@@ -105,27 +105,27 @@ router.post("/editevent", (req, res) => {
     num_adults,
     alerts
   );
-  if (response.id) {
+  if (response.rowCount) {
     res.send(response);
   } else {
-    res.send("Error").status(500);
+    res.sendStatus(500);
   }
 });
 
 // INSERT CHECK-IN OR CHECK-OUT TIME INTO VA
-router.post("/insertcheckinouttime", (req, res) => {
+router.post("/insertcheckinouttime", async (req, res) => {
   const { va_id, event } = req.body;
   console.log("IM IN THE BACK AND THE VA_ID IS: ", va_id);
-  const response = AdminModel.updateActivity(va_id, event);
+  const response = await AdminModel.updateActivity(va_id, event);
   if (response.id) {
     res.send(response);
   } else {
-    res.send("Error").status(500);
+    res.sendStatus(500);
   }
 });
 
 // Add a Document
-router.post("/addDocument", (req, res) => {
+router.post("/addDocument", async (req, res) => {
   const {
     is_general,
     event_id,
@@ -133,7 +133,7 @@ router.post("/addDocument", (req, res) => {
     document_url,
     admin_id,
   } = req.body;
-  const response = AdminModel.addDocument(
+  const response = await AdminModel.addDocument(
     is_general,
     event_id,
     document_title,
@@ -143,7 +143,7 @@ router.post("/addDocument", (req, res) => {
   if (response.id) {
     res.send(response);
   } else {
-    res.send("Error").status(500);
+    res.sendStatus(500);
   }
 });
 
