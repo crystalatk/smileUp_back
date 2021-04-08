@@ -12,7 +12,7 @@ class Events {
     try {
       const query = `
             SELECT id, title, date_start, date_stop, location, signup_deadline, age_min FROM events
-            WHERE signup_deadline > NOW();`;
+            WHERE signup_deadline > NOW() ORDER BY date_start ASC;`;
       const response = await db.any(query);
       return response;
     } catch (error) {
@@ -162,8 +162,6 @@ class Events {
       return error.message;
     }
   }
-
-
 }
 
 module.exports = Events;
