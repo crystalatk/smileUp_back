@@ -63,8 +63,10 @@ router.post("/addevent", (req, res) => {
     alerts
   );
   if (response.id) {
+    console.log("I am not caught");
     res.send(response);
   } else {
+    console.log("You got the error");
     res.send("Error").status(500);
   }
 });
@@ -114,7 +116,7 @@ router.post("/editevent", (req, res) => {
 router.post("/insertcheckinouttime", (req, res) => {
   const { va_id, event } = req.body;
   console.log("IM IN THE BACK AND THE VA_ID IS: ", va_id);
-  const response = AdminModel.updateEvent(va_id, event);
+  const response = AdminModel.updateActivity(va_id, event);
   if (response.id) {
     res.send(response);
   } else {
@@ -129,7 +131,7 @@ router.post("/addDocument", (req, res) => {
     event_id,
     document_title,
     document_url,
-    admin_id
+    admin_id,
   } = req.body;
   const response = AdminModel.addDocument(
     is_general,
