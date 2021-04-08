@@ -122,7 +122,7 @@ class Events {
         FROM volunteer_activities va 
           INNER JOIN volunteers v ON va.volunteer_id = v.id 
           INNER JOIN events e ON va.event_id = e.id 
-            WHERE va.check_in_time IS null AND va.guardian_denied = false AND  va.guardian_approval = true AND and va.volunteer_id = ${volunteer_id} AND e.signup_deadline > NOW();`;
+            WHERE va.check_in_time IS null AND va.guardian_denied = false AND  va.guardian_approval = true AND va.volunteer_id = ${volunteer_id} AND e.signup_deadline > NOW();`;
       const response = await db.any(query);
       console.log("this is the", response);
       return response;

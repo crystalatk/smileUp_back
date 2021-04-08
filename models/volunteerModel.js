@@ -35,6 +35,24 @@ class Volunteer {
     }
   }
 
+  // Get all events that a volunteer has signed up for
+  static async getAllEventsByVolunteerID(volunteer_id) {
+    try {
+      const query = `
+      SELECT va.id AS id, va.volunteer_id, e.title, e.date_start, e.date_stop, e.location, va.event_id, va.check_in_time, va.check_out_time, va.guardian_approval, va.created_at AS date_signed_up,  (DATE_PART('hour', va.check_out_time::timestamp - va.check_in_time::timestamp)) * 60 +
+               DATE_PART('minute', va.check_out_time::timestamp - va.check_in_time::timestamp) AS minutes
+        FROM volunteer_activities va 
+          INNER JOIN events e ON va.event_id = e.id 
+            WHERE va.volunteer_id = ${volunteer_id}
+            ORDER BY e.date_start DESC;`;
+      const response = await db.any(query);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+
   // Get Volunteer Info based off the va_id from volunteer_activities table
   static async getAllVolunteerInfoBasedOnVAID(va_id) {
     try {
@@ -178,12 +196,8 @@ class Volunteer {
     }
   }
 
-
   // Update Volunteer Avatar Picture
-  static async updateAvatar(
-    id,
-    avatar_link
-  ) {
+  static async updateAvatar(id, avatar_link) {
     try {
       const query = `UPDATE volunteers SET avatar_link = '${avatar_link}' WHERE id = ${id};`;
       const response = await db.result(query);
@@ -194,8 +208,6 @@ class Volunteer {
       return error.message;
     }
   }
-
- 
 
   // Volunteer Check-in
   // Volunteer Check-out
