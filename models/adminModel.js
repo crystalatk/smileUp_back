@@ -25,7 +25,7 @@ class Admin {
     alerts
   ) {
     try {
-      const response = db.result(
+      const response = await db.result(
         `INSERT INTO events (title, date_start, date_stop, location, description, headcount_served_potential, signup_deadline, age_min, min_participants, max_participants, adults_needed, num_adults, alerts) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`,
         [
           title,
@@ -43,6 +43,7 @@ class Admin {
           alerts,
         ]
       );
+      console.log("RESPONSE IS: ", response);
       return response;
     } catch (err) {
       console.log(err.message);
@@ -68,7 +69,7 @@ class Admin {
     alerts
   ) {
     try {
-      const response = db.result(
+      const response = await db.result(
         `UPDATE events SET title = $1, date_start = $2, date_stop = $3, location = $4, description = $5, headcount_served_potential = $6, signup_deadline = $7, age_min = $8, min_participants = $9, max_participants = $10, adults_needed = $11, num_adults = $12, alerts = $13 WHERE id = ${event_id};`,
         [
           title,
@@ -96,7 +97,7 @@ class Admin {
   // INSERT CHECK-IN OR CHECK-OUT TIME INTO VA
   static async updateActivity(va_id, event) {
     try {
-      const response = db.result(
+      const response = await db.result(
         `UPDATE volunteer_activities SET ${event} = NOW() WHERE id = ${va_id};`
       );
       return response;
@@ -151,7 +152,7 @@ class Admin {
     admin_id
   ) {
     try {
-      const response = db.result(
+      const response = await db.result(
         `INSERT INTO docs_admin (is_general, event_id, document_title, document_url, admin_id) VALUES ($1, $2, $3, $4, $5);`,
         [is_general, event_id, document_title, document_url, admin_id]
       );
