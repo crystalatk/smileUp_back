@@ -149,6 +149,21 @@ class Events {
       return error.message;
     }
   }
+
+  // Get all documents
+  static async getAllDocuments() {
+    try {
+      const query = `
+            SELECT * FROM docs_admin;`;
+      const response = await db.any(query);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+
+
 }
 
 module.exports = Events;

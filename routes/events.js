@@ -96,6 +96,16 @@ router.get("/needsapprovaleventsbyvolunteerid", async (req, res) => {
   console.log(approvedEvents);
 });
 
+// Get a list of all documents
+router.get("/getdocuments", async (req, res) => {
+  const { volunteer_id } = req.query;
+  const approvedEvents = await EventsModel.getAllDocuments(
+    volunteer_id
+  );
+  res.send(approvedEvents);
+  console.log(approvedEvents);
+});
+
 // POSTS
 
 module.exports = router;
