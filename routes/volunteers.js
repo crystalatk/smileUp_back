@@ -3,8 +3,7 @@
 const express = require("express"),
   router = express.Router(),
   VolunteersModel = require("../models/volunteerModel"),
-  GuardianModel = require('../models/guardianModel');
-
+  GuardianModel = require("../models/guardianModel");
 
 // get all Info on a volunteer for their profile page
 router.get("/profile", async (req, res) => {
@@ -29,6 +28,16 @@ router.get("/volunteerinfofromvaid", async (req, res) => {
   const response = await VolunteersModel.getAllVolunteerInfoBasedOnVAID(va_id);
   console.log("THIS IS THE RESPONSE: ", response);
   res.send(response);
+});
+
+// Get all events that a volunteer has signed up for
+router.get("/getallvolunteeractivities", async (req, res) => {
+  const { volunteer_id } = req.query;
+  const volunteerEventsResponse = await VolunteersModel.getAllEventsByVolunteerID(
+    volunteer_id
+  );
+  console.log("THIS IS THE RESPONSE: ", volunteerEventsResponse);
+  res.send(volunteerEventsResponse);
 });
 
 //Get all Volunteers
@@ -133,13 +142,11 @@ router.post("/insetcheckintime", async (req, res) => {
   console.log("I am connected to the back");
 });
 
-router.post('/linkminor', async (req, res) => {
-  const {
+router.post("/linkminor", async (req, res) => {
+  const { minor_id, guardian_id } = req.body;
+  const response = await GuardianModel.linkGuardianAndMinor(
     minor_id,
     guardian_id
-  } = req.body;
-  const response = await GuardianModel.linkGuardianAndMinor(
-    minor_id, guardian_id
   );
 
   if (response) {
@@ -151,20 +158,13 @@ router.post('/linkminor', async (req, res) => {
 
 // Update Volunteer Info
 router.post("/editavatar", async (req, res) => {
-  const {
-    id,
-    avatar_link
-  } = req.body;
-  const response = await VolunteersModel.updateAvatar(
-    id,
-    avatar_link
-  );
+  const { id, avatar_link } = req.body;
+  const response = await VolunteersModel.updateAvatar(id, avatar_link);
   if (response) {
     res.send(response);
   } else {
     res.send("Error: please try again").status(500);
   }
 });
-
 
 module.exports = router;
