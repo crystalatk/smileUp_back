@@ -1,7 +1,7 @@
-const host = "queenie.db.elephantsql.com",
-  database = "rlhupser",
-  user = "rlhupser",
-  password = "Hwz5c1gapJXAikNnfdJmpPHTlsSrkccE";
+const host = process.env.EXPRESS_APP_HOST,
+  database = process.env.EXPRESS_APP_DATABASE,
+  user = process.env.EXPRESS_APP_USER,
+  password = process.env.EXPRESS_APP_PASSWORD;
 
 const pgp = require("pg-promise")({
   query: function (event) {
