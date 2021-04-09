@@ -26,5 +26,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "pg-promise": "^10.9.5"
+  },
+  "engines": {
+    "node": "14.15.4"
   }
 }
